@@ -1,150 +1,77 @@
-# AGENTS.md — Codex 仓库级规则
+# AGENTS.md — 个人游戏设计方法论仓库规则
 
-你在这个仓库中扮演 **射击战斗策划专家 + 文档生成 agent**。
+本仓库用于沉淀个人游戏设计方法论，并让 Codex / Claude Code / GPT 等 agent 稳定复用。
 
-本仓不是游戏工程代码仓库，而是 **射击战斗设计知识库与策划文档模板仓库**。你的主要任务不是写程序，而是根据项目约定、知识库和模板，生成可审阅、可复制、可落地的射击战斗策划文档。
-
----
+当前两个主 Skill：
+- Game Design Workflow：通用策划案与方案评审
+- Shooter Combat Design：射击战斗设计与诊断
 
 ## 0. 强制工作顺序
 
-每次开始任务，必须按以下顺序读取/判断：
+1. 读取 AGENTS.md。
+2. 读取根 SKILL.md 完成路由。
+3. 读取对应 skills/*/SKILL.md。
+4. 若有具体项目，读取 conventions/*.md 或用户给出的项目规则。
+5. 只读取与问题相关的 methodology/。
+6. 需要历史经验时再读取 cases/。
+7. 需要行业知识、公式或参考时再读取 references/。
+8. 需要正式文档时才读取 templates/。
+9. 用户要求落盘时，再写 output/ 或用户指定位置。
 
-1. 读取本文件 `AGENTS.md`。
-2. 读取 `SKILL.md`。
-3. 读取用户指定的 `conventions/*.md`。
-4. 根据任务类型读取相关 `references/*.md`。
-5. 选择对应 `templates/*.md`。
-6. 生成或修改 `output/` 下的文档。
+不要一次性把整个知识库全部读入上下文。
 
-除非用户明确说“只改某个文件”，否则不得跳过项目约定。
+## 1. 四层职责
 
----
+- skills/：AI 如何工作。
+- methodology/：经人工确认的个人判断框架。
+- cases/：带上下文的设计案例和决策。
+- references/：行业知识、公式、参考框架。
 
-## 1. 默认语言与风格
+参考知识不自动等于个人方法论。
 
-- 默认中文输出。
-- 先结论，再关键判断、原因、风险点、落地建议。
-- 尽量结构化，优先表格。
-- 不要长篇铺垫。
-- 不要自动追加“面试表达版”。
-- 所有英文术语、参数名、节点名、资产名，默认加中文说明：
-  - TTK（理论击杀时间）
-  - eTTK（实战击杀时间）
-  - STK / BTK（击杀子弹数）
-  - Recoil（后坐力）
-  - Spread / Bloom（散布 / 扩散）
-  - Falloff（伤害衰减）
-  - ADS（开镜瞄准）
-  - Hip Fire（腰射）
-  - GAS（Gameplay Ability System，游戏能力系统）
+## 2. 通用判断规则
 
----
+- 先判断目标是否成立，再执行用户提出的方案。
+- 区分现象、问题、原因、方案。
+- 区分规则层、内容层、配置层、表现层、实现层。
+- 修改已有方案优先最小必要改动。
+- 不因为“能做”就默认“应该做”。
+- 不主动扩大用户没有要求的设计范围。
+- 明确事实、假设和待验证项。
+- 发现关键逻辑问题直接指出。
 
-## 2. 任务类型路由
+## 3. Game Design Workflow 重点
 
-根据用户任务选择对应知识库：
+检查：
+1. 功能目标是否明确。
+2. 当前需求是否真的解决目标。
+3. 规则是否完整。
+4. 状态与边界是否覆盖。
+5. 系统输入输出是否清楚。
+6. 玩家实际行为是否符合预期。
+7. 是否存在支配策略或无效选择。
+8. 团队是否能据此执行。
+9. 是否存在可验收标准。
 
-| 用户任务 | 必读文件 |
-|---|---|
-| 枪械设计 / 枪械平衡 / 武器生态 | `references/gunplay-framework.md`、`references/weapon-balance.md`、`references/ttk-etk-model.md`、`templates/blank-weapon-design.md` |
-| TTK 调整 / 血量护甲调整 | `references/ttk-etk-model.md`、`references/weapon-balance.md`、`templates/blank-ttk-change-report.md` |
-| 技能设计 / 英雄技能 / 职业技能 | `references/shooting-skill-design.md`、`references/meta-rules.md`、`templates/blank-skill-design.md` |
-| 3C / 移动 / 镜头 / 手感 | `references/3c-camera-movement.md`、`references/gunplay-framework.md`、`templates/blank-gunplay-tuning-report.md` |
-| 地图交战空间 / 距离分布 | `references/map-engagement-space.md`、`references/weapon-balance.md` |
-| UE / Lyra / GAS 技能落地 | `references/ue-lyra-gas-landing.md`、`templates/blank-feature-requirement.md` |
-| 设计自检 / 风险复盘 | `references/meta-rules.md`、`references/anti-patterns.md` |
+## 4. Shooter Combat Design 重点
 
----
+按问题选择相关维度：交战距离、TTK、eTTK、STK / BTK、命中率、射速、后坐力、散布、伤害衰减、换弹、ADS、机动性、3C、技能转化效率、武器生态、高低端差异、Meta 塌缩、风险收益、反制窗口。
 
-## 3. 射击战斗设计默认检查维度
+不得从“某武器太强”直接跳到某个参数修改。必须先判断强度来自理论效率、实战兑现、距离覆盖、操作成本还是结构性上位。
 
-所有枪械、技能、3C、平衡文档，必须至少检查：
+## 5. 方法论更新
 
-1. 交战距离是否成立。
-2. TTK（理论击杀时间）和 eTTK（实战击杀时间）是否分离。
-3. STK / BTK（击杀子弹数）是否造成档位突变。
-4. 命中率（Hit Rate）变化是否符合预期。
-5. 优势兑现链路是否清楚。
-6. 是否侵蚀其他武器或技能生态位。
-7. 是否导致 Meta 单一化。
-8. 高低端玩家收益差异。
-9. 风险收益是否匹配。
-10. 反制窗口是否足够。
+Observation → Case → Candidate Rule → 人工确认 → Confirmed Rule
 
----
+- 一次讨论默认只是 Observation 或 Candidate Rule。
+- 没有用户确认，不得写入 methodology/。
+- 有上下文和验证价值的内容可进入 cases/。
+- 新规则若与已有 methodology/ 冲突，先标记冲突，不静默覆盖。
 
-## 4. 数值写作规则
+## 6. 输出风格
 
-- 不知道项目真实数值时，不要伪造确定值。
-- 可以写“建议区间”“示例值”“待项目数据验证”。
-- TTK 计算必须写清楚公式：
+默认中文。先结论，再关键判断、风险和落地建议。简单问题短答。不自动追加面试版。用户只要求评审时，不主动扩展设计范围。
 
-```text
-BTK = ceil(目标有效生命值 / 单发有效伤害)
-TTK = (BTK - 1) / 射速RPS
-RPS = RPM / 60
-```
+## 7. 文件规则
 
-- 若涉及爆头、护甲、衰减、命中率，必须说明它们对 eTTK（实战击杀时间）的影响。
-- 任何“加强 / 削弱”建议都要说明影响对象：新手、普通玩家、高端玩家、不同武器、不同距离。
-
----
-
-## 5. 输出文件规范
-
-默认输出到：
-
-```text
-output/weapons/       # 武器设计与武器平衡
-output/skills/        # 技能设计
-output/tuning/        # TTK、枪感、3C、平衡调整报告
-output/features/      # UE / Lyra / GAS / 功能需求
-```
-
-命名建议：
-
-```text
-weapon-<name>-design.md
-skill-<name>-design.md
-ttk-change-<topic>.md
-gunplay-tuning-<topic>.md
-feature-<topic>-requirement.md
-```
-
----
-
-## 6. Codex 修改要求
-
-当你修改文件时：
-
-1. 尽量小步提交，不要一次重写整个仓库。
-2. 保留用户已有内容，不要无理由删除。
-3. 修改前先判断目标文件类型和任务范围。
-4. 输出完成后，列出：
-   - 新增文件
-   - 修改文件
-   - 主要改动
-   - 还需要用户补充的数据
-5. 不要生成二进制大文件，除非用户明确要求 xlsx / html / zip。
-
----
-
-## 7. 质量标准
-
-合格的射击战斗文档必须做到：
-
-- 能说明“这个设计解决什么战斗压力”。
-- 能说明“在什么交战距离成立”。
-- 能说明“如何创造或兑现击杀窗口”。
-- 能说明“如何被反制”。
-- 能说明“对武器生态 / 技能生态的影响”。
-- 能给出“落地参数 / 资源需求 / 验收标准”。
-
-不合格文档的典型问题：
-
-- 只写酷炫表现，不写玩法价值。
-- 只写理论 TTK，不写 eTTK。
-- 只写技能效果，不写释放风险。
-- 只写加强/削弱，不写生态后果。
-- 只写参数，不写玩家实际行为变化。
+优先小步修改；不无理由删除；不导入原始聊天记录；不把完整项目资产塞进仓库；当前不新增数据库；大型二进制文件不进入方法论仓库。
