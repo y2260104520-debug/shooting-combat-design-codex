@@ -79,3 +79,7 @@ Observation → Case → Candidate Rule → 人工确认 → Confirmed Rule
 ## 7. 文件规则
 
 优先小步修改；不无理由删除；不导入原始聊天记录；不把完整项目资产塞进仓库；当前不新增数据库；大型二进制文件不进入方法论仓库。
+
+## PUBGM Excel 母版索引
+
+制作前读取 conventions/pubgm-zombie-documentation.md 的最高优先级母版要求，并检查 conventions/templates/首版枪械与配件功能-普通配件方案111(3).xlsx 实物。禁止以内容源替代格式母版。
