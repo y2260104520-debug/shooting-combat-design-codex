@@ -1,5 +1,9 @@
 # AGENTS.md — 个人游戏设计方法论仓库规则
 
+## 项目规范索引
+
+处理 PUBGM 僵尸模式策划文档时，必须先读取 [PUBGM僵尸模式策划文档规范](conventions/pubgm-zombie-documentation.md)，并遵循其中的内容、结构、文本及格式要求。该规范仅适用于 PUBGM 僵尸模式。
+
 本仓库用于沉淀个人游戏设计方法论，并让 Codex / Claude Code / GPT 等 agent 稳定复用。
 
 当前两个主 Skill：
